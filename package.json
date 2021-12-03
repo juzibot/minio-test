@@ -1,0 +1,87 @@
+{
+  "name": "xiaoju-bot-api",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "egg": {
+    "typescript": true
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-template-server",
+    "docker-start": "egg-scripts start --title=egg-template-server",
+    "stop": "egg-scripts stop --title=egg-template-server",
+    "dev": "egg-bin dev -r egg-ts-helper/register",
+    "debug": "egg-bin debug -r egg-ts-helper/register",
+    "docker": "./scripts/build_docker.sh",
+    "test-local": "egg-bin test -r egg-ts-helper/register",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "cov": "egg-bin cov -r egg-ts-helper/register",
+    "tsc": "npm run clean && ets && tsc -p tsconfig.json",
+    "ci": "npm run lint && npm run cov && npm run tsc",
+    "autod": "autod",
+    "lint": "npm run lint:es --fix && npm run lint:ts --fix",
+    "lint:ts": "tsc --noEmit",
+    "lint:es": "eslint 'app/**/*.ts' 'test/**/*.ts' 'config/**/*.ts'",
+    "clean": "ets clean && rm -rf ./dist ./minify && npm run clearInstallFile",
+    "pack": "rm -rf ./minify && npm run tsc && npm run minify",
+    "minify": "uglifyjs-folder ./dist -o ./minify -ye -x .js",
+    "genInstallFile": "ts-node ./scripts/generatePackageJson.ts",
+    "clearInstallFile": "rm -f ./package.install.json"
+  },
+  "dependencies": {
+    "@juzibot/egg-typeorm": "^1.0.6",
+    "dotenv": "^8.2.0",
+    "egg": "^2.6.1",
+    "egg-mongo-native": "^3.3.0",
+    "egg-redis": "^2.4.0",
+    "egg-scripts": "^2.6.0",
+    "egg-validate": "^2.0.2",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.23.0",
+    "node-cache": "^4.2.0",
+    "pg": "^7.18.2",
+    "tslib": "^1.9.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@juzibot/eslint-config": "^0.1.6",
+    "@juzibot/tsconfig": "^0.1.0",
+    "@juzibot/git-scripts": "^0.1.6",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/mocha": "^2.2.40",
+    "@types/moment": "^2.13.0",
+    "@types/mongodb": "^3.1.19",
+    "@types/node": "^7.0.12",
+    "@types/supertest": "^2.0.0",
+    "@types/uuid": "^3.4.4",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.6.2",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.16.0",
+    "egg-ts-helper": "^1.11.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.0.0",
+    "uglifyjs-folder": "^1.5.2"
+  },
+  "engines": {
+    "node": ">=10.9.0"
+  },
+  "ci": {
+    "version": "10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "eslintIgnore": [
+    "coverage"
+  ],
+  "author": "wind",
+  "license": "MIT",
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
+  }
+}
